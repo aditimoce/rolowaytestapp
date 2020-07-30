@@ -1,0 +1,42 @@
+﻿@model RolowayTestApp.Models.Expense
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Expense</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpenseCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpenseCategory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpenseAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpenseAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpenseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpenseDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ExpenseID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

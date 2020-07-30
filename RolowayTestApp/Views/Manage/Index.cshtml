@@ -1,0 +1,40 @@
+﻿@model RolowayTestApp.Models.IndexViewModel
+@{
+    ViewBag.Title = "Roloway Expense Manager";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>You can add your expenses and incomes below:</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dd>
+
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Change your password", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Create", "SetPassword")
+            }
+
+        </dd>
+
+        <dd>
+            @Html.ActionLink("Add Expenses", "AddExpense")
+        </dd>
+        <dd>
+            @Html.ActionLink("Add Incomes", "AddIncome")
+        </dd>
+        <dd>
+            @Html.ActionLink("View Expenses", "Index", "Expenses")
+        </dd>
+        <dd>
+            @Html.ActionLink("View Incomes", "Index", "Incomes")
+        </dd>
+    </dl>
+
+</div>
