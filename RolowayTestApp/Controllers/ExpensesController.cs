@@ -15,12 +15,16 @@ namespace RolowayTestApp.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Expenses
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string searchString)
         {
             ViewBag.CategorySortParm = String.IsNullOrEmpty(sortOrder) ? "expensecategory_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
             var expense = from s in db.Expenses
                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                expense = expense.Where(s => s.ExpenseCategory.Contains(searchString));
+            }
             switch (sortOrder)
             {
                 case "expensecategory_desc":

@@ -15,28 +15,33 @@ namespace RolowayTestApp.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Incomes
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string searchString)
         {
             ViewBag.CategorySortParm = String.IsNullOrEmpty(sortOrder) ? "incomecategory_desc" : "";
-            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-            var income = from s in db.Incomes
-                          select s;
-            switch (sortOrder)
-            {
-                case "incomecategory_desc":
-                    income = income.OrderByDescending(s => s.IncomeCategory);
-                    break;
-                case "Date":
-                    income = income.OrderBy(s => s.IncomeTime);
-                    break;
-                case "date_desc":
-                    income = income.OrderByDescending(s => s.IncomeTime);
-                    break;
-                default:
-                    income = income.OrderBy(s => s.IncomeCategory);
-                    break;
-            }
-            return View(income.ToList());
+             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+             var income = from s in db.Incomes
+                           select s;
+             if (!String.IsNullOrEmpty(searchString))
+             {
+                 income = income.Where(s => s.IncomeCategory.Contains(searchString));
+             }
+             switch (sortOrder)
+             {
+                 case "incomecategory_desc":
+                     income = income.OrderByDescending(s => s.IncomeCategory);
+                     break;
+                 case "Date":
+                     income = income.OrderBy(s => s.IncomeTime);
+                     break;
+                 case "date_desc":
+                     income = income.OrderByDescending(s => s.IncomeTime);
+                     break;
+                 default:
+                     income = income.OrderBy(s => s.IncomeCategory);
+                     break;
+             }
+             return View(income.ToList());
+
         }
 
         // GET: Incomes/Details/5
